@@ -12,7 +12,8 @@ RUN apk add /lib/glibc-2.31-r0.apk
 # Set workdir
 WORKDIR /root/cloudreve
 
-ADD cloudreve ./cloudreve
+#ADD cloudreve ./cloudreve
+RUN wget -O cloudreve https://github.com/jth445600/Cloudreve-Heroku/raw/master/cloudreve
 ADD conf.ini ./conf.ini
 ADD cloudreve.db ./cloudreve.db
 ADD run.sh ./run.sh
