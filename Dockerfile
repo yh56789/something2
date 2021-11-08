@@ -1,4 +1,4 @@
-FROM redis:6.0.5-alpine
+FROM p3terx/s6-alpine
 
 # Add glibc package
 COPY ./glibc-2.31-r0.apk /lib/
@@ -26,7 +26,7 @@ ENV S6_BEHAVIOUR_IF_STAGE2_FAILS=1 \
     DISK_CACHE= \
     IPV6_MODE= \
     UMASK_SET= \
-    SPECIAL_MODE=
+    SPECIAL_MODE=rclone
 
 EXPOSE \
     6800 \
