@@ -1,4 +1,4 @@
-FROM p3terx/s6-alpine
+FROM redis:6.0.5-alpine
 
 # Add glibc package
 COPY ./glibc-2.31-r0.apk /lib/
@@ -8,34 +8,6 @@ RUN wget -q -O /etc/apk/keys/sgerrand.rsa.pub https://alpine-pkgs.sgerrand.com/s
 
 # Install glibc
 RUN apk add /lib/glibc-2.31-r0.apk
-
-RUN apk add --no-cache jq findutils && \
-    curl -fsSL git.io/aria2c.sh | bash && \
-    rm -rf /var/cache/apk/* /tmp/*
-
-COPY rootfs /
-
-ENV S6_BEHAVIOUR_IF_STAGE2_FAILS=1 \
-    RCLONE_CONFIG=/config/rclone.conf \
-    UPDATE_TRACKERS=true \
-    CUSTOM_TRACKER_URL= \
-    LISTEN_PORT=6888 \
-    RPC_PORT=6800 \
-    RPC_SECRET=350522147 \
-    PUID= PGID= \
-    DISK_CACHE= \
-    IPV6_MODE= \
-    UMASK_SET= \
-    SPECIAL_MODE=rclone
-
-EXPOSE \
-    6800 \
-    6888 \
-    6888/udp
-
-VOLUME \
-    /config \
-    /downloads
 
 # Set workdir
 WORKDIR /root/cloudreve
